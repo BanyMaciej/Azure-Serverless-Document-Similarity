@@ -7,10 +7,10 @@
 3. Wdrożenie oparte o Azure Functions i Azure Storage.
 
 ### Zadana realizacja projektu 
-1. Dane uzyskane metodą scrapingu z Wikipedii.
-2. Przetworzenie danych.
-3. Przygotowanie środowiska do treningu modeli uczenia maszynowego oraz środowisko wdrożeniowe.
-4. Wytrenowanie modeli oraz realizacja ich wdrożenia.
+1. Dane uzyskane metodą scrapingu z Wikipedii. (Ewentualnie - skorzystanie z dumpa Wikipedii?).
+2. Przetworzenie danych (oczyszczenie, wekrtoryzacja).
+3. Przygotowanie środowiska do treningu modeli uczenia maszynowego oraz środowisko wdrożeniowe (python3, anaconda, gensim).
+4. Wytrenowanie modeli oraz realizacja ich wdrożenia (Azure Functions, Azure Blob Storage).
 
 ### Spotkania 
 1. 03.12.2020r. 13:30
