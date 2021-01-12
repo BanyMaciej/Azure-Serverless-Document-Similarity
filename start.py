@@ -1,7 +1,6 @@
 from configparser import ConfigParser
 from dataprocessor import DataProcessor
 from dataservices import DataLoader, DataWriter
-from modelprocessor import ModelProcessor
 from wikiscrapper import WikiScrapper
 
 
