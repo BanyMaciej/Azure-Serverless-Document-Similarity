@@ -17,3 +17,9 @@
 * Przedstawienie pomysłu na projekt.
 * Sprawy organizacyjne.
 * Ocena zespołu.
+
+2. 17.12.2020r. Check-point
+
+3. 15.01.2021r. Check-point
+
+4. Oddanie projektu
