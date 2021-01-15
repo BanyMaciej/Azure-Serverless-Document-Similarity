@@ -1,0 +1,36 @@
+{
+  "scriptFile": "__init__.py",
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "get",
+        "post"
+      ]
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "$return"
+    },
+    {
+      "type": "blob",
+      "direction": "in",
+      "dataType": "binary",
+      "name": "doc2vecblob",
+      "path": "asds-wikipedia/doc2vec_model.pkl",
+      "connection": "AzureWebJobsStorage"
+    },
+    {
+      "type": "blob",
+      "direction": "in",
+      "dataType": "binary",
+      "name": "logregblob",
+      "path": "asds-wikipedia/logreg_model.pkl",
+      "connection": "AzureWebJobsStorage"
+    }
+  ]
+}
