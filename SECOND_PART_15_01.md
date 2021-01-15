@@ -8,8 +8,4 @@ https://docs.microsoft.com/en-us/azure/azure-functions/functions-add-output-bind
 
 3. Wytrenować model
 
-4. Deploy całości
 
-5. Test
-
-6. Wstępnie działające rozwiązanie
