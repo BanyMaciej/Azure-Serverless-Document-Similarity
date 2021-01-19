@@ -9,13 +9,10 @@ from typing import Any, Callable
 import asyncio
 
 class WikiScrapper:
-  is_running = False
-  on_finish = None
 
-  def __init__(self, interval, base_endpoint):
-    self.interval = interval
+
+  def __init__(self, base_endpoint):
     self.base_endpoint = base_endpoint
-    self._loop = asyncio.get_event_loop()
 
   def _get_header_text(self, soup):
     content = soup.find("div", {"class": 'mw-parser-output'})
@@ -45,24 +42,35 @@ class WikiScrapper:
     soup = BeautifulSoup(response.content, 'html.parser')
 
     raw_header = self._get_header_text(soup)
-
-    self.dataframe.loc[self.dataframe['Title'] == title, 'RawWiki'] = raw_header
     
     print('Processed "%s", waiting %d seconds' % (title, self.interval))
-
+    
+    return raw_header
+  
+  def _save_to_dataframe(self, title, result):
+    self.dataframe.loc[self.dataframe['RowKey'] == title, 'RawWiki'] = result
 
   async def _run(self):
     for title in self._titles_iter:
-      self._process(title)
+      result = self._process(title)
+      self._save_to_dataframe(title, result)
       await asyncio.sleep(self.interval)
 
-  def start(self, dataframe):
-    self.dataframe = dataframe
-    self._titles_iter = iter(dataframe['Title'])
-    self.is_running = True
+  def start(self, data, interval = 10):
+    self.interval = interval
+    if isinstance(data, pd.DataFrame):
+      self.dataframe = data
+    else:
+      self.dataframe = pd.DataFrame(data)
+    self._titles_iter = iter(self.dataframe['RowKey'])
+    self._loop = asyncio.get_event_loop()
     self._task = self._loop.create_task(self._run())
     try:
       self._loop.run_until_complete(self._task)
       return self.dataframe
     except asyncio.CancelledError:
-      pass
+      return None
+  
+  def get(self, title):
+    return self._process(title)
+  

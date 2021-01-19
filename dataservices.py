@@ -1,15 +1,8 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Dec 27 00:28:24 2020
-
-@author: banymaciej
-"""
-
 import pandas as pd
 
 class DataLoader:
-  _fields_types = {'Category': str, 
-                   'Title': str, 
+  _fields_types = {'PartitionKey': str, 
+                   'RowKey': str, 
                    'RawWiki': str, 
                    'CleanWiki': str}
   
@@ -22,8 +15,8 @@ class DataLoader:
 
 
 class DataWriter:
-  _fields_types = {'Category': str, 
-                   'Title': str, 
+  _fields_types = {'PartitionKey': str, 
+                   'RowKey': str, 
                    'RawWiki': str, 
                    'CleanWiki': str}
   

@@ -1,8 +1,7 @@
 from configparser import ConfigParser
 from dataprocessor import DataProcessor
-from dataservices import DataLoader, DataWriter
+from azurestorageclient import AzureStorageClient
 from wikiscrapper import WikiScrapper
-
 
 def main():
   config = ConfigParser()
@@ -11,13 +10,16 @@ def main():
   interval = config.getint("main", "interval")
   base_endpoint = config.get("main", "base_endpoint")
 
-  dataframe = DataLoader(input_file="test.csv").get_dataframe()
-  scrapper = WikiScrapper(interval, base_endpoint)
-  scrapper.start(dataframe)
+  account_name = config.get("azure", "storage_account")
+  account_key = config.get("azure", "storage_account_key")
+
+  azure_client = AzureStorageClient(account_name, account_key, 'asdsWiki')
+  data = azure_client.get_table()
+  scrapper = WikiScrapper(base_endpoint)
+  dataframe = scrapper.start(data, interval)
   dataProcessor = DataProcessor()
   dataProcessor.preprocess_dataframe(dataframe)
-  DataWriter(output_file="result.csv").save_result(dataframe)
-
+  azure_client.update_by_dataframe(dataframe)
 
 if __name__ == '__main__':
   main()
