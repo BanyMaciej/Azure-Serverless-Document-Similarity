@@ -10,10 +10,9 @@ def main():
   interval = config.getint("main", "interval")
   base_endpoint = config.get("main", "base_endpoint")
 
-  account_name = config.get("azure", "storage_account")
-  account_key = config.get("azure", "storage_account_key")
+  storage_account_conn_str = config.get("azure", "storage_account_conn_str")
 
-  azure_client = AzureStorageClient(account_name, account_key, 'asdsWiki')
+  azure_client = AzureStorageClient(storage_account_conn_str, 'asdsWiki')
   data = azure_client.get_table()
   scrapper = WikiScrapper(base_endpoint)
   dataframe = scrapper.start(data, interval)

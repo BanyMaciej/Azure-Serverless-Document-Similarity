@@ -1,16 +1,12 @@
-from azure.cosmosdb.table.tableservice import TableService
-from azure.cosmosdb.table.tablebatch import TableBatch
-from azure.cosmosdb.table.models import Entity
+from azure.data.tables import TableClient
 
 class AzureStorageClient:
-
-  def __init__(self, account_name, account_key, table_name):
-    self.table_service = TableService(account_name=account_name, account_key=account_key)
-    self.table_name = table_name
+    
+  def __init__(self, connection_string, table_name):
+    self.table_client = TableClient.from_connection_string(conn_str=connection_string, table_name=table_name)
   
   def get_by_title(self, title):
-    result = self.table_service.query_entities(
-      self.table_name, 
+    result = self.table_client.query_entities(
       filter=("RowKey eq '%s'" % title),
       select='PartitionKey, RowKey, RawWiki, CleanWiki'
     )
@@ -18,16 +14,15 @@ class AzureStorageClient:
     return result_list[0] if len(result_list) > 0 else None
   
   def get_by_category(self, category):
-    result = self.table_service.query_entities(
-      self.table_name, 
+    result = self.table_client.query_entities(
       filter=("PartitionKey eq '%s'" % category),
       select='PartitionKey, RowKey, RawWiki, CleanWiki'
     )
     return list(result)
   
   def get_table(self, as_generator=True):
-    result = self.table_service.query_entities(
-      self.table_name,
+    result = self.table_client.query_entities(
+      filter=None,
       select='PartitionKey, RowKey, RawWiki, CleanWiki'
     )
     if as_generator:
@@ -47,31 +42,31 @@ class AzureStorageClient:
       if clean_wiki is not None:
         entity['CleanWiki'] = clean_wiki
       
-      self.table_service.update_entity(self.table_name, entity)
+      self.table_client.update_entity(entity)
       return True
     else:
       return False
   
   def update_by_dataframe(self, dataframe):
     inbatch = 0
-    batch = TableBatch()
-    result = []
+    batch = self.table_client.create_batch()
+    results = []
     for pk, indexes in dataframe.groupby('PartitionKey').groups.items():
       for idx in indexes:
         entity = dataframe.iloc[idx, :].to_dict()
         entity.pop('etag', None)
-        batch.insert_or_merge_entity(entity)
+        batch.upsert_entity(entity)
         inbatch += 1
         if inbatch > 99:
           print("commit - exceeded")
-          result += self.table_service.commit_batch(self.table_name, batch)
+          results.append(self.table_client.send_batch(batch))
           inbatch = 0
-          batch = TableBatch()
+          batch = self.table_client.create_batch()
       if inbatch > 0:
         print("commit - pk")
-        result += self.table_service.commit_batch(self.table_name, batch)
+        results.append(self.table_client.send_batch(batch))
         inbatch = 0
-        batch = TableBatch()
-    return result
+        batch = self.table_client.create_batch()
+    return results
 
 
