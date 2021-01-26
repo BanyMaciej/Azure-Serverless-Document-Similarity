@@ -3,18 +3,29 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
+    <title>Azure Serverless Document Similarity</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="./functions.js"></script>
   </head>
   <body>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src="./functions.js"></script>
-    
+    <script id="resultRowTemplate" type="text/x-jquery-tmpl" src="resultRowTemplate.html"></script>
+
     <label for="title">Tekst</label><br>
     <input type="text" id="title" name="title" value="Tiger"><br>
     <button id="processButton" onclick="getSimilarDocuments()">Send!</button><br>
-    <div id="categoryResult"></div>
+    <table id="results">
+      <thead>
+        <tr>
+          <th>Tytuł</th>
+          <th>Opis</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
   </body>
 </html>

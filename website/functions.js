@@ -9,9 +9,9 @@ function getSimilarDocuments(formData) {
     function(data, status) {
       var result = data.result;
       var out = result.map(function (o) { 
-        return '' + o.title + ' - ' + '<a href=' + o.url + '>LINK</a>' + ' - ' + o.summary;
+        return '<tr><td><a href="' + o.url + '">' + o.title + '</a></td><td>' + o.summary + '</td></tr>';
       });
-      $('#categoryResult').html(out.join("<br/>"));
+      $('#results tbody').html(out.join(''));
     }
   ).fail(function(err) { console.log(err); })
     .always(function() {
