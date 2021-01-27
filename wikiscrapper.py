@@ -24,7 +24,7 @@ class WikiScrapper:
             continue
           else:
             return header_texts.strip()
-        elif tag.has_attr('class'):
+        elif tag.has_attr('class') or tag.findChild(attrs={'id': 'coordinates'}, recursive=True):
           continue
         tag_text = tag.get_text()
 
@@ -42,8 +42,6 @@ class WikiScrapper:
     soup = BeautifulSoup(response.content, 'html.parser')
 
     raw_header = self._get_header_text(soup)
-    
-    print('Processed "%s", waiting %d seconds' % (title, self.interval))
     
     return raw_header
   

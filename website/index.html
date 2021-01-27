@@ -6,26 +6,34 @@
     <title>Azure Serverless Document Similarity</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" src="./functions.js"></script>
+    <script type="text/javascript" src="functions.js"></script>
   </head>
   <body>
-    <script id="resultRowTemplate" type="text/x-jquery-tmpl" src="resultRowTemplate.html"></script>
-
-    <label for="title">Tekst</label><br>
-    <input type="text" id="title" name="title" value="Tiger"><br>
-    <button id="processButton" onclick="getSimilarDocuments()">Send!</button><br>
-    <table id="results">
-      <thead>
-        <tr>
-          <th>Tytuł</th>
-          <th>Opis</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+    <div class='background'>
+    <div class='screen'>
+      <div class='header'>
+        <h2>WIKIPEDIA SIMILARITY ENGINE</h2>
+      </div>
+      <div class='titleContainer'>
+        <span class="far fa-envelope fa-lg iconwa"></span>
+        
+        <input id="title" class="titlepick" type="text" placeholder="Insert title or url..."/>
+        <Button id="processButton" class="lnr lnr-arrow-right white" onclick="getSimilarDocuments()"></Button>
+      </div>
+      <div id="results" class="resultsContainer">
+        <ul class="responsive-table">
+          <li class="table-header">
+            <div class="col col-1">Title</div>
+            <div class="col col-2">Summary</div>
+          </li>
+        </ul>
+      </div> 
+    </div>
+  </div>
+      
   </body>
 </html>
