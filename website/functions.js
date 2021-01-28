@@ -10,6 +10,7 @@ function getSimilarDocuments(formData) {
   const url = 'http://localhost:7071/api/getSimilarDocuments';
   
   $('#results').css("visibility", "hidden");
+  $('.resultsSpinner').css("display", "inline-block");
   $('#processButton').attr('disabled', true);
 
   var title = $('#title').val();
@@ -28,6 +29,7 @@ function getSimilarDocuments(formData) {
     }
   ).fail(function(err) { console.log(err); })
     .always(function() {
+      $('.resultsSpinner').css("display", "none");
       $('#processButton').attr('disabled', false);
     });
 }

@@ -17,7 +17,7 @@ def get_category_name(category_id):
 
 def getVector(doc2vec, text):
   words = text.split()
-  vector = doc2vec.infer_vector(words)
+  vector = doc2vec.infer_vector(words, steps=20)
   return vector
 
 def predict(logreg, vector):
@@ -28,22 +28,21 @@ def get_storage_client():
   azure_storage_table = os.environ['AzureStorageTable']
   return AzureStorageClient(azure_storage_conn, azure_storage_table)
 
-def get_similar_documents(doc, doc2vec, logreg):
+def get_similar_documents(title, doc, doc2vec, logreg):
   base_wikipedia_endpoint = os.environ['WikipediaBaseEndpoint']
   
   clean_text = DataProcessor().preprocess_text(doc)
   vector = getVector(doc2vec, clean_text)
-  prediction = predict(logreg, vector)
-  category = get_category_name(prediction)
+  category = predict(logreg, vector)
 
   azure_storage = get_storage_client()
   similar_documents = azure_storage.get_by_category(category)
-  
+
   result = [{
       'url': base_wikipedia_endpoint+d['RowKey'],
       'title': d['RowKey'],
       'summary': d['RawWiki'][:100]+'...' if len(d['RawWiki']) > 100 else d['RawWiki']
-    } for d in similar_documents]
+    } for d in similar_documents if d['RowKey'] != title]
   return result
 
 def main(req: func.HttpRequest, doc2vecblob, logregblob) -> func.HttpResponse:
@@ -78,7 +77,7 @@ def main(req: func.HttpRequest, doc2vecblob, logregblob) -> func.HttpResponse:
     data = scrapper.get(title)
 
   if data:
-    similar_results = get_similar_documents(data, doc2vec, logreg)
+    similar_results = get_similar_documents(title, data, doc2vec, logreg)
     return func.HttpResponse(
       json.dumps({'result': similar_results}),
       mimetype="application/json"
