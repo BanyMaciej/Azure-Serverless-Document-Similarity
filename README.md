@@ -1,6 +1,7 @@
 ## PROJEKT
 ### LINGARO x Bany Maciej x Krupińska Izabela
 ### Serverless real-time document similarity engine using Python and Azure Functions
+<img src="Images/azDiagram3.png" width = 800> 
 ### Plan
 1. Funkcjonalny serwis, rekomendujący artykuły Wikipedii w oparciu o ich podobieństwo do zadanego wyszukiwania.
 2. Wektorowa reprezentacja dokumentów zrealizowana przy użyciu języka Python.
