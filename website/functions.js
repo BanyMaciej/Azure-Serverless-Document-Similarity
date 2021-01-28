@@ -7,13 +7,18 @@ function getSimilarDocuments(formData) {
   };
   const headerHtml = '<li class="table-header"><div class="col col-1">Title</div><div class="col col-2">Summary</div></li>';
 
-  const url = 'https://asdsfunctionapp.azurewebsites.net/api/getSimilarDocuments';
+  const url = 'http://localhost:7071/api/getSimilarDocuments';
   
   $('#results').css("visibility", "hidden");
   $('.resultsSpinner').css("display", "inline-block");
   $('#processButton').attr('disabled', true);
 
   var title = $('#title').val();
+
+  if (title.indexOf('https://en.wikipedia.org/wiki/') !== -1) {
+    title = title.replace('https://en.wikipedia.org/wiki/', '')
+  }
+
   var data = { title: title };
 
   $('#results .responsive-table').html("");
