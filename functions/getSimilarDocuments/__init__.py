@@ -12,7 +12,7 @@ import azure.functions as func
 
 
 def get_category_name(category_id):
-  d = {0: 'Animals', 1: 'Sports', 2: 'Instruments'}
+  d = {0: 'Animals', 1: 'Sports', 2: 'Instruments', 3: 'Painters', 4: 'Countries'}
   return d.get(category_id)
 
 def getVector(doc2vec, text):

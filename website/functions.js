@@ -5,13 +5,17 @@ function getSimilarDocuments(formData) {
       <div class="col col-2" data-label="Customer Name">${obj.summary}</div>
     </li>`;
   };
-  const url = 'https://asdsfunctionapp.azurewebsites.net/api/getSimilarDocuments';
+  const headerHtml = '<li class="table-header"><div class="col col-1">Title</div><div class="col col-2">Summary</div></li>';
+
+  const url = 'http://localhost:7071/api/getSimilarDocuments';
   
   $('#results').css("visibility", "hidden");
   $('#processButton').attr('disabled', true);
 
   var title = $('#title').val();
   var data = { title: title };
+
+  $('#results .responsive-table').html("");
   
   $.post(
     url, 
@@ -20,7 +24,7 @@ function getSimilarDocuments(formData) {
       var result = data.result;
       var out = result.map(rowTemplate);
       $('#results').css("visibility", "visible");
-      $('#results .responsive-table').append(out.join(''));
+      $('#results .responsive-table').append(headerHtml + out.join(''));
     }
   ).fail(function(err) { console.log(err); })
     .always(function() {
