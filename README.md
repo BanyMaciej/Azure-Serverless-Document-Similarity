@@ -52,7 +52,7 @@ Następnie usuneliśmy stopwords, czyli słowa które nie niosą znaczenia.
 Za pomoca Tagged Document z gensim nadaliśmy tagi(kategorie) kolejnym dokumentom. Przeprowadziliśmy badania dzieląc otagowane dokument na zbiór trenujący i testowy.
 
 Stworzyliśmy kilka modeli doc2vec z rozproszonym zbiorem słów (dm =0) lub 'rozproszoną pamięcią' (dm=1). Zmienialiśmy wymiarowość wektora cech, liczbę ignorowanych słów, ilość słów szumów. Najlepszy okazał się model z rozproszonym zbiorem słów o rozmiarze wektora 300 i wartością alpha 0.065.
-Dokładność zbioru treningowego wynosiłą 100%, a testowego 95.7%. Miara F1 dla zbioru treningowego = 100%, a dla tetsowego 95.7%
+Dokładność zbioru treningowego wynosiłą 100%, a testowego 95.7%. Miara F1 dla zbioru treningowego = 100%, a dla testowego 95.7%
 
 Na podstawie otrzymanego modelu doc2vec został zbudowany model regresji logistycznej.
 
@@ -71,7 +71,7 @@ Została stworzona funkcja, która pobierała nauczone modele z Blob Storage, ge
 7. Uruchomić pliki z folderów website i functions.
 
 
-### Ngranie video 
+### Nagranie video 
 Po tym linkiem można znaleźć prezentację naszego projektu: https://youtu.be/5TFOnCP0Y_E.
 
 Link do rozwiązania: https://asdsstorageaccount.z6.web.core.windows.net/.
