@@ -63,7 +63,7 @@ Została stworzona funkcja, która pobierała nauczone modele z Blob Storage, ge
 ### Instrukcja reprodukcji rozwiązania
 1. Pobrać nasz github
 2. pip3 install -r requirements.txt
-3. Połączyć się z Blob Storage przez Storage Explorer
+3. Uzupełnić connection string w config.ini
 3. Uruchomić start.py
 4. Tam zapisze się plik z przetworzonymi danymi result.csv
 5. Uruchomić plik bestmodel.ipynb
