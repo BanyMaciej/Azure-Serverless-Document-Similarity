@@ -13,7 +13,7 @@ Silnik został obudowany w statycznej stronie web, która jest hostowana za pomo
 Ze stworzonej wyszukiwarki można korzystać podając tytuł bądź adres url. Podane dane są przesyłane do Azure Function, w której scrapowany jest pierwszy akapit treści (nagłówek) danego artykułu. Następnie treść jest oczyszczana oraz przekazywana do pobieranych z Blob Storage Modeli (doc2vec oraz logistic regression). Na tej podstawie określana jest kategoria artykułu i zwracany podobny wynik. Dane wyświetlane są w tabeli z nazwami tytułów jako linki do WIkipedii oraz pierwszymi 100 znakami nagłówka artykułu.
 
 ### Diagram architektury
-Poniżej znajduje się diagram architektury projektu. Dane są pobierane z Wikipedii, przygotowywane do modelu, następnie odbywa się trening sieci. Model zostaje zapisany w Azure Blob Storage. Ostateczny wynik uzysuje się w przygotowanej przeglądarce Wikipedia Similarity Engine. Wpisane zadanie trafia do Azure Function, z której dostajemy wynik końcowy.
+Poniżej znajduje się diagram architektury projektu. Dane są pobierane z Wikipedii, przygotowywane do modelu, następnie odbywa się trening sieci. Model zostaje zapisany w Azure Blob Storage. Ostateczny wynik uzysuje się w przygotowanej wyszukiwarce Wikipedia Similarity Engine. Wpisane zadanie trafia do Azure Function, z której dostajemy wynik końcowy.
 <img src="azDiagram3.png" width = 600> 
 
 Przepływ projektu można podzielić na trzy główne części:
